@@ -9,38 +9,39 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 
 @RestController
 @RequestMapping("/")
 public class ProxyServiceController {
     private static final String USER_AGENT = "Mozilla/5.0";
+    private static int intercalation = 2;
 
     @GetMapping
-    public String manageRequest(@RequestParam String path, String method) {
+    public String manageRequest(@RequestParam String path) {
         try {
-            return request(path, method);
+            return request(path);
         } catch (IOException e) {
             return "{\"error\":\"La peticion fallo\"}";
         }
     }
 
-    public String request(String path, String method) throws IOException {
+    public String request(String path) throws IOException {
         String url;
-        if (path.startsWith("/collatzsequence") && method.equals("GET")) {
+        if (path.startsWith("/collatzsequence") && intercalation % 2 == 0) {
             url = "http://localhost:8081" + path;
-        } else if (path.startsWith("mathService2") && method.equals("POST")) {
+            intercalation++;
+        } else if (path.startsWith("mathService2") && intercalation % 2 == 1) {
             url = "http://localhost:8082" + path;
+            intercalation++;
         } else {
             return "{\"error\":\"Ruta no válida\"}";
         }
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod(method);
+        con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
         int responseCode = con.getResponseCode();
 
