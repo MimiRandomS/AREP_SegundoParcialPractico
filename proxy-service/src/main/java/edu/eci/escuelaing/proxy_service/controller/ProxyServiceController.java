@@ -17,11 +17,10 @@ import java.net.URL;
 public class ProxyServiceController {
     private static final String USER_AGENT = "Mozilla/5.0";
     private static int intercalation = 2;
-
-    @GetMapping
-    public String manageRequest(@RequestParam String path) {
+    @GetMapping("/collatzsequence")
+    public String collatzRequest(@RequestParam int value) {
         try {
-            return request(path);
+            return request("/collatzsequence?value=" + value);
         } catch (IOException e) {
             return "{\"error\":\"La peticion fallo\"}";
         }
