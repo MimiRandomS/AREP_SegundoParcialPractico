@@ -33,7 +33,7 @@ public class ProxyServiceController {
             url = "http://52.91.9.72:8080" + path;
             intercalation++;
         } else if (path.startsWith("mathService2") && intercalation % 2 == 1) {
-            url = "http://54.226.14.206" + path;
+            url = "http://54.226.14.206:8080" + path;
             intercalation++;
         } else {
             return "{\"error\":\"Ruta no válida\"}";
