@@ -21,7 +21,8 @@
 
         async function collatz() {
             let valueCollatz = parseInt(document.getElementById("value").value);
-            const res = await fetch(`${baseUrl}/?value=${valueCollatz}`);
+            const res = await fetch(`${baseUrl}?value=${valueCollatz}`);
+            console.log(`${baseUrl}/?value=${valueCollatz}`);
             const data = await res.json();
             document.getElementById("result").innerText = JSON.stringify(data, null, 2);
         }

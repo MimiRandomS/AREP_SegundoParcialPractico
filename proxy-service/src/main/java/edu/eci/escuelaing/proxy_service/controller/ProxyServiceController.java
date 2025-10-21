@@ -20,6 +20,7 @@ public class ProxyServiceController {
     @GetMapping("/collatzsequence")
     public String collatzRequest(@RequestParam int value) {
         try {
+            System.out.println("/collatzsequence?value=" + value);
             return request("/collatzsequence?value=" + value);
         } catch (IOException e) {
             return "{\"error\":\"La peticion fallo\"}";
