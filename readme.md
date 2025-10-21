@@ -31,4 +31,4 @@ El sistema consta de tres componentes principales:
   - Muestra el resultado en pantalla.
 
 ## Evidencia Despliegue
-
+[![Evidencia Despliegue](https://img.youtube.com/vi/gf_mFVJYBGY/0.jpg)](https://youtu.be/gf_mFVJYBGY)
