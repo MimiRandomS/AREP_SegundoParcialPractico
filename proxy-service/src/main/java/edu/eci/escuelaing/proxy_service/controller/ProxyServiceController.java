@@ -1,16 +1,16 @@
 package edu.eci.escuelaing.proxy_service.controller;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/")
@@ -30,10 +30,10 @@ public class ProxyServiceController {
     public String request(String path) throws IOException {
         String url;
         if (path.startsWith("/collatzsequence") && intercalation % 2 == 0) {
-            url = "http://localhost:8081" + path;
+            url = "http://52.91.9.72:8080" + path;
             intercalation++;
         } else if (path.startsWith("mathService2") && intercalation % 2 == 1) {
-            url = "http://localhost:8082" + path;
+            url = "http://54.226.14.206" + path;
             intercalation++;
         } else {
             return "{\"error\":\"Ruta no válida\"}";
