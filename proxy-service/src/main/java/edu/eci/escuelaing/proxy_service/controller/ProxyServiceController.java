@@ -20,19 +20,19 @@ public class ProxyServiceController {
     private static final String USER_AGENT = "Mozilla/5.0";
 
     @GetMapping
-    public String manageRequest(@RequestParam String path) {
+    public String manageRequest(@RequestParam String path, String method) {
         try {
-            return request(path);
+            return request(path, method);
         } catch (IOException e) {
             return "{\"error\":\"La peticion fallo\"}";
         }
     }
 
-    public String request(String path) throws IOException {
+    public String request(String path, String method) throws IOException {
         String url;
-        if (path.startsWith("mathService1")) {
+        if (path.startsWith("/collatzsequence") && method.equals("GET")) {
             url = "http://localhost:8081" + path;
-        } else if (path.startsWith("mathService2")) {
+        } else if (path.startsWith("mathService2") && method.equals("POST")) {
             url = "http://localhost:8082" + path;
         } else {
             return "{\"error\":\"Ruta no válida\"}";
@@ -40,11 +40,9 @@ public class ProxyServiceController {
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
+        con.setRequestMethod(method);
         con.setRequestProperty("User-Agent", USER_AGENT);
-
         int responseCode = con.getResponseCode();
-        System.out.println("GET Response Code :: " + responseCode);
 
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(new InputStreamReader(
